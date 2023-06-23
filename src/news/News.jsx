@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -22,9 +22,11 @@ const News = () => {
     setSearchQuery(event.target.value);
   };
 
-  const filteredArticles = articles.filter((article) =>
-    article.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredArticles = useMemo(() => {
+    return articles.filter((article) =>
+      article.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [articles, searchQuery]);
 
   return (
     <div className="container mt-3">
